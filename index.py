@@ -96,24 +96,24 @@ def remove(LINE):
 
 @app.route("/history")
 def my_history_page():
-    try:
-        list = []
-        client3 = MongoClient('ds019254.mlab.com',19254)
-        client3.search.authenticate('shakedinero','a57821688')
-        db_history = client3.history
-        cursor = db_history.history.shaked.find()
+    #try:
+    list = []
+    client3 = MongoClient('ds019254.mlab.com',19254)
+    client3.search.authenticate('shakedinero','a57821688')
+    db_history = client3.history
+    cursor = db_history.history.shaked.find()
     # Make list for html page
-        for document in cursor:
-            x = []
-            x.append(document['title'])
-            x.append(document['price'])
-            x.append(document['shipping'])
-            x.append(document['url'])
-            x.append(document['image'])
-            list.append(x)
+    for document in cursor:
+    	x = []
+        x.append(document['title'])
+        x.append(document['price'])
+        x.append(document['shipping'])
+        x.append(document['url'])
+        x.append(document['image'])
+        list.append(x)
         return flask.render_template('my-history.html',list=list)
-    except:
-        return flask.render_template('404.html')
+    #except:
+    #    return flask.render_template('404.html')
 
 
 @app.route("/results/add_to_favorites/<LINE>",methods=['GET','POST'])
@@ -137,23 +137,23 @@ def addtofavorites(LINE):
     
 @app.route("/favorites")
 def my_archive_page():
-    try:
-        client4 = MongoClient('ds019254.mlab.com',19254)
-        client4.search.authenticate('shakedinero','a57821688')
-        db_favorites = client4.favorites
-        cursor = db_favorites.favorites.shaked.find()
+  #  try:
+  client4 = MongoClient('ds019254.mlab.com',19254)
+  client4.search.authenticate('shakedinero','a57821688')
+  db_favorites = client4.favorites
+  cursor = db_favorites.favorites.shaked.find()
         # Make list for html page
-        for document in cursor:
-            x = []
-            x.append(document['title'])
-            x.append(document['price'])
-            x.append(document['shipping'])
-            x.append(document['url'])
-            x.append(document['image'])
-            list.append(x)
-        return flask.render_template('my-favorites.html',list=list)
-    except:
-        return flask.render_template('404.html')
+  for document in cursor:
+   	x = []
+	x.append(document['title'])
+        x.append(document['price'])
+        x.append(document['shipping'])
+        x.append(document['url'])
+        x.append(document['image'])
+        list.append(x)
+  return flask.render_template('my-favorites.html',list=list)
+  #  except:
+  #      return flask.render_template('404.html')
     
 
 @app.route("/results")
