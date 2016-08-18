@@ -428,6 +428,14 @@ def history_results(LINE):
     	return flask.redirect("/results")
 
 
+@app.route("/open/<LINE>",methods=['GET','POST'])
+@check_login
+def open(LINE):
+	URL=str(LINE)
+    	return flask.render_template('open.html',URL=URL)
+
+
+
 
 @app.route("/public")
 @check_login
