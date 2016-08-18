@@ -428,13 +428,38 @@ def history_results(LINE):
     	return flask.redirect("/results")
 
 
-@app.route("/open",methods=['GET','POST'])
+@app.route("/open/<LINE>",methods=['GET','POST'])
 @check_login
-def open_page():
-	text = flask.request.form['opening']
-	URL= str(text)	
+def open(LINE):
+    email = flask.session['username']
+    user = email.split("@")[0]
+    domain = ((email.split("@")[1]).split("."))[0]
+    username=user+domain
+    list=[]
+    STR = LINE.replace('%20',' ')
+    client = MongoClient('ds019254.mlab.com',19254)
+    client.results.authenticate('shakedinero','a57821688')
+    db_results = client.results
+    command="cursor = db_results.results."+username+".find()"
+    exec command
+    for doc in cursor:
+        if STR == doc['title']:
+        	URL=doc['url']
+        	return flask.render_template("open.html",URL=URL)
+        else:
+            continue
+    return flask.redirect("/results")
+
+
+
+
+#@app.route("/open",methods=['GET','POST'])
+#@check_login
+#def open_page():
+	#text = flask.request.form['opening']
+	#URL= str(text)	
 #	URL=str(LINE)
-    	return flask.render_template('open.html',URL=URL)
+    	#return flask.render_template('open.html',URL=URL)
 
 
 @app.route("/public")
