@@ -431,7 +431,7 @@ def history_results(LINE):
 @app.route("/open",methods=['GET','POST'])
 @check_login
 def open_page():
-	for key is flask.request.form:
+	for key in flask.request.form:
     		if key.startswith('opening'):
         		id_ = key.partition('.')[-1]
         		URL = flask.request.form[key]
