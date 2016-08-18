@@ -320,7 +320,6 @@ def get_results():
     FILE=open("/tmp/user.txt",'w')
     FILE.write(username)
     FILE.close()
-                #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
     proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     PATH=(out.split('\n'))[0]
