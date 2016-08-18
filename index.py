@@ -317,9 +317,9 @@ def get_results():
     user = email.split("@")[0]
     domain = ((email.split("@")[1]).split("."))[0]
     username=user+domain
-    file=open("/tmp/user.txt",'w')
-    file.write(username)
-    file.close()
+    FILE=open("/tmp/user.txt",'w')
+    FILE.write(username)
+    FILE.close()
                 #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
     proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
@@ -430,25 +430,25 @@ def history_results(LINE):
 
 @app.route("/open/<LINE>",methods=['GET','POST'])
 @check_login
-def open(LINE):
-    email = flask.session['username']
-    user = email.split("@")[0]
-    domain = ((email.split("@")[1]).split("."))[0]
-    username=user+domain
-    list=[]
-    STR = LINE.replace('%20',' ')
-    client = MongoClient('ds019254.mlab.com',19254)
-    client.results.authenticate('shakedinero','a57821688')
-    db_results = client.results
-    command="cursor = db_results.results."+username+".find()"
-    exec command
-    for doc in cursor:
-        if STR == doc['title']:
-        	URL=doc['url']
-        	return flask.render_template("open.html",URL=URL)
-        else:
-            continue
-    return flask.redirect("/results")
+def open_url(LINE):
+	email = flask.session['username']
+    	user = email.split("@")[0]
+    	domain = ((email.split("@")[1]).split("."))[0]
+    	username=user+domain
+    	list=[]
+    	STR = LINE.replace('%20',' ')
+    	client = MongoClient('ds019254.mlab.com',19254)
+    	client.results.authenticate('shakedinero','a57821688')
+    	db_results = client.results
+    	command="cursor = db_results.results."+username+".find()"
+    	exec command
+    	for doc in cursor:
+        	if STR == doc['title']:
+        		URL=doc['url']
+        		return flask.render_template("open.html",URL=URL)
+        	else:
+            		continue
+    	return flask.redirect("/results")
 
 
 
