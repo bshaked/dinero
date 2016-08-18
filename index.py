@@ -442,7 +442,7 @@ def open_url(LINE):
     	command="cursor = db_results.results."+username+".find()"
     	exec command
     	for doc in cursor:
-        	if STR == doc['title']:
+        	if STR in doc['title']:
         		URL=doc['url']
         		return flask.render_template("open.html",URL=URL)
         	else:
