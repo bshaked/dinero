@@ -435,7 +435,7 @@ def open_page():
     		if key.startswith('opening'):
         		id_ = key.partition('.')[-1]
         		URL = str(flask.request.form[key])
-        		
+        		global URL	
     	return flask.render_template('open.html',URL=URL)
 
 
