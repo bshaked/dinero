@@ -320,6 +320,7 @@ def get_results():
     file=open("/tmp/user.txt",'w')
     file.write(username)
     file.close()
+                #subprocess.call("Dinero-System-Scripts/ebaydropbox.py")
     proc = subprocess.Popen(["pwd"], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
     PATH=(out.split('\n'))[0]
@@ -401,18 +402,6 @@ def history_delete(LINE):
     #db_history.history.shaked.insert(list)
     return flask.redirect("/history")
     
-
-@app.route("/open/<LINE>",methods=['GET','POST'])
-@check_login
-def open(LINE):
-	email = flask.session['username']
-    	user = email.split("@")[0]
-    	domain = ((email.split("@")[1]).split("."))[0]
-    	username=user+domain
-    	URL=str(LINE)
-    	return flask.render_template('open.html',URL=URL)
- 
- 
 @app.route("/history_results/<LINE>",methods=['GET','POST'])
 @check_login
 def history_results(LINE):
