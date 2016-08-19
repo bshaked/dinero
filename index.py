@@ -434,7 +434,7 @@ def open_url(LINE):
     	user = email.split("@")[0]
     	domain = ((email.split("@")[1]).split("."))[0]
     	username=user+domain
-    	list=[]
+    	LIST=[]
     	STR = urllib.unquote(LINE).decode('utf8')
     	client = MongoClient('ds019254.mlab.com',19254)
     	client.results.authenticate('shakedinero','a57821688')
@@ -444,7 +444,8 @@ def open_url(LINE):
     	for doc in cursor:
         	if STR in doc['title']:
         		URL=doc['url']
-        		return flask.render_template("open.html",URL=URL)
+        		LIST.append(URL)
+        		return flask.render_template("open.html",LIST=LIST)
         	else:
             		continue
     	return flask.redirect("/results")
