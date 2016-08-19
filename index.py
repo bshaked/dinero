@@ -435,7 +435,7 @@ def open_url(LINE):
     	domain = ((email.split("@")[1]).split("."))[0]
     	username=user+domain
     	list=[]
-    	STR = LINE.replace('%20',' ')
+    	STR = urllib.unquote(LINE).decode('utf8')
     	client = MongoClient('ds019254.mlab.com',19254)
     	client.results.authenticate('shakedinero','a57821688')
     	db_results = client.results
