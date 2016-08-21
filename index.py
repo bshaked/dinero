@@ -443,7 +443,7 @@ def open_url(LINE):
     	exec command
     	for doc in cursor:
         	if STR in doc['title']:
-        		URL=doc['url']
+        		URL=str(doc['url']).split(':')[1]
         		LIST.append(URL)
         		return flask.render_template("open.html",LIST=LIST)
         	else:
