@@ -171,9 +171,11 @@ body {margin:0;}
           Dinero Filters
         </a>
       </h4>
+
     </div>
 
        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+           <!--
       <div class="panel-body">
             <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
           <p></p>
@@ -182,6 +184,22 @@ body {margin:0;}
       <form action=http://dinero-web.heroku.com/results ><input type="submit" value="All Listings" class="btn btn-outline-success btn-block"></form>
 
         </div>
+        -->
+
+           <div class="container">
+<!--
+  <div class="btn-group btn-group-justified">
+    -->
+  <!--  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a> -->
+    <a style="width: 105px" href="http://dinero-web.heroku.com/results/cheap" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>Low-Cost</a>
+    <a style="width: 140px" href="http://dinero-web.heroku.com/results/freeshipping" class="btn btn-primary"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span>Free Shipping</a>
+    <a style="width: 95px" href="http://dinero-web.heroku.com/results" class="btn btn-primary"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>All</a>
+
+
+ <!-- </div> -->
+</div>
+
+
     </div>
   </div>   
       
@@ -194,19 +212,30 @@ body {margin:0;}
       {% for x in list %}
 
             <tr>
+
                 <td><big><b> <font color="#18bc9c">{{x[0]}}</font></big></td></b>
-                <td><b>Price:</b> {{x[1]}}$</td>
-                <td><b>Shipping:</b> {{x[2]}}$</td>
+<!--
+                <td><div style="float: right; clear: both"><b>Price:</b> {{x[1]}}$</div></td>
+
+         <td><div style="float: right;"><b>Shipping:</b> {{x[2]}}$</div></td>
+  -->
   <!--  <td><div class="img-thumbnail"><img src={{x[4]}} id="myImg" height="120" width="120"></div></td> -->
 		<!-- <td><div class="img-thumbnail"><img src={{x[4]}} height="120" width="120"></div></td> -->
+
                 <td><p>
-                <div class="img-thumbnail">
+                <div style="float: left;" class="img-thumbnail">
 		<a href={{x[3]}}>
-		<img border="0" alt="ItemPic" src={{x[4]}} width="120" height="120">
+		<img style="align-content: inherit" border="0" alt="ItemPic" src={{x[4]}} width="200" height="200">
 		</a>
 		</div>
-		</p></td>
-    
+		</p>
+
+                    <div style="float: right;"><b>Price:</b> {{x[1]}}$ </div>
+
+                <div style="float: right;"><b>Shipping:</b> {{x[2]}}$ </div>
+
+                </td>
+
 
                 <td><form action={{x[3]}} target="_blank"><input type="submit" value="Open in {{x[5]}}" target="_blank" class="btn btn-primary btn-block"></form></td>
                 <td><form action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[6]}}"><input type="submit" value="Like" class="btn btn-success btn-block"></form></td>
