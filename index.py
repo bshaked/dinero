@@ -520,7 +520,8 @@ def cheapPage():
     except:
         print "no facebook login"
     list=cheap(username)
-    return flask.render_template('results.html',list=list)
+    #return flask.render_template('results.html',list=list)
+    return Response(stream_template('results.html', list=list))
 
 
 
