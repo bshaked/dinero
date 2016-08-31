@@ -452,20 +452,8 @@ def freeShipping():
     	return flask.render_template('results.html',list=list)
 
 
-@app.route("/results/cheap")
-@check_login
-def cheap():
+def cheap(username):
     #try:
-	if (session['logged_in']==True):
-		data = facebook.get('/me').data
-		if 'id' in data and 'name' in data:
-    			user_id = data['id']
-    			username = (data['name']).replace(' ','')+str(user_id)
-        if ("username" in flask.session):
-        	email = flask.session['username']
-        	user = email.split("@")[0]
-        	domain = ((email.split("@")[1]).split("."))[0]
-        	username=user+domain
     	client = MongoClient('ds019254.mlab.com',19254)
     	client.results.authenticate('shakedinero','a57821688')
     	db = client.results
@@ -513,7 +501,26 @@ def cheap():
         	x.append(document['image'])
         	x.append(document['web'])
         	list.append(x)
-    	return flask.render_template('results.html',list=list)
+        return list
+
+@app.route("/results/cheap")
+@check_login
+def cheapPage():
+    if ("username" in flask.session):
+        email = flask.session['username']
+        user = email.split("@")[0]
+        domain = ((email.split("@")[1]).split("."))[0]
+        username=user+domain
+    try:
+        if (session['logged_in']==True):
+            data = facebook.get('/me').data
+            if 'id' in data and 'name' in data:
+                user_id = data['id']
+                username = (data['name']).replace(' ','')+str(user_id)
+    except:
+        print "no facebook login"
+    list=cheap(username)
+    return flask.render_template('results.html',list=list)
 
 
 
