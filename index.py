@@ -362,7 +362,7 @@ def my_archive_page():
         return flask.render_template('404.html')
 
 def resultsFunc(username):
-    x = []  ### This is the list for html
+    list = []  ### This is the list for html
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
     db = client.results
