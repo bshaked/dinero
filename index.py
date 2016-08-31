@@ -19,6 +19,7 @@ import urllib2
 import requests
 from flask_oauth import OAuth
 from flask.ext.compress import Compress
+from flask import Response
 
 app = flask.Flask(__name__)
 #compress = Compress()
@@ -75,6 +76,13 @@ def check_login(func):
 		else:
 			return flask.redirect("/")
 	return functools.update_wrapper(wrapper, func)
+
+def stream_template(template_name, **context):
+    app.update_template_context(context)
+    t = app.jinja_env.get_template(template_name)
+    rv = t.stream(context)
+    rv.enable_buffering(5)
+    return rv
 
 @app.route("/")
 def loginPage():
@@ -353,6 +361,26 @@ def my_archive_page():
     except:
         return flask.render_template('404.html')
 
+def resultsFunc():
+    x = []  ### This is the list for html
+    client = MongoClient('ds019254.mlab.com',19254)
+    client.results.authenticate('shakedinero','a57821688')
+    db = client.results
+    command="cursor = db.results."+username+".find()"
+    exec command
+#Make list for html page
+    for document in cursor:
+        x = []
+        x.append(document['title'])
+        x.append(document['price'])
+        x.append(document['shipping'])
+        x.append(document['url'])
+        x.append(document['image'])
+        x.append(document['web'])
+        x.append(str(document['_id']))
+        x.append(str(datetime.datetime.now()).split('.')[0])
+        list.append(x)
+    return list
 
 @app.route("/results")
 @check_login
@@ -378,26 +406,11 @@ def get_results():
     	list = []
     	os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py")
     #Dinero2Mongo(username)
-    	x = []  ### This is the list for html
-    	client = MongoClient('ds019254.mlab.com',19254)
-    	client.results.authenticate('shakedinero','a57821688')
-    	db = client.results
-    	command="cursor = db.results."+username+".find()"
-    	exec command
-#Make list for html page
-    	for document in cursor:
-        	x = []
-        	x.append(document['title'])
-        	x.append(document['price'])
-        	x.append(document['shipping'])
-        	x.append(document['url'])
-        	x.append(document['image'])
-        	x.append(document['web'])
-        	x.append(str(document['_id']))
-        	x.append(str(datetime.datetime.now()).split('.')[0])
-        	list.append(x)
-    	return flask.render_template('results.html',list=list)
+        list=resultsFunc()
+    	#return flask.render_template('results.html',list=list)
+        return Response(stream_template('results.html', list=list))
     #except:
+
      #   return flask.render_template('404.html')
 
 @app.route("/results/freeshipping")
