@@ -361,7 +361,7 @@ def my_archive_page():
     except:
         return flask.render_template('404.html')
 
-def resultsFunc():
+def resultsFunc(username):
     x = []  ### This is the list for html
     client = MongoClient('ds019254.mlab.com',19254)
     client.results.authenticate('shakedinero','a57821688')
@@ -406,7 +406,7 @@ def get_results():
     	list = []
     	os.system("python "+PATH+"/Dinero-System-Scripts/Dinero2Mongo.py")
     #Dinero2Mongo(username)
-        list=resultsFunc()
+        list=resultsFunc(username)
     	#return flask.render_template('results.html',list=list)
         return Response(stream_template('results.html', list=list))
     #except:
