@@ -172,6 +172,7 @@ body {margin:0;}
         </a>
       </h4>
     </div>
+     <input type="text" id="myInput">
 
        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
@@ -317,20 +318,9 @@ $(document).ready(function() {
 
     // DataTable
     var table = $('#results').DataTable();
-
-    // Apply the search
-    table.columns().every( function () {
-        var that = this;
-
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
-}
+$('#myInput').on( 'keyup', function () {
+    table.search( this.value ).draw();
+} );
                         </script>
 
 
