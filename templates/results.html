@@ -309,23 +309,7 @@ body {margin:0;}
         <script type="../static/text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.12.3.min.js"
 
         <!--
-        <script>
-
-$(document).ready(function() {
-
-    // Setup - add a text input to each footer cell
-    $('#results tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    } );
-
-    // DataTable
-    var table = $('#results').DataTable();
-$('#myInput').on( 'keyup', function () {
-    table.search( this.value ).draw();
-} );
-                        </script>
--->
+     
         <script>
 $(document).ready( function () {
   $('#results').dataTable( {
