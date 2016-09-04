@@ -172,7 +172,7 @@ body {margin:0;}
         </a>
       </h4>
     </div>
-   
+
 
        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
@@ -185,7 +185,7 @@ body {margin:0;}
  </div>
            </div>
  </div>
-      	
+
       	<!-- THE OLD FILTERS BUTTONS
             <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
           <p></p>
@@ -195,9 +195,9 @@ body {margin:0;}
 
         </div>
     </div>
-  </div>   
+  </div>
   -->
-      
+
 <!--
   <form action=http://dinero-web.heroku.com/results/freeshipping ><input  type="submit" value="Free Shipping" class="btn btn-outline-success btn-block"></form>
       <form action=http://dinero-web.heroku.com/results/cheap ><input  type="submit" value="Low-Cost" class="btn btn-outline-success btn-block"></form>
@@ -219,7 +219,7 @@ body {margin:0;}
 		</a>
 		</div>
 		</p></td>
-    
+
 
                 <td><form action={{x[3]}} target="_blank"><input type="submit" value="Open in {{x[5]}}" target="_blank" class="btn btn-primary btn-block"></form></td>
                 <td><form action="http://dinero-web.heroku.com/results/add_to_favorites/{{x[6]}}"><input type="submit" value="Like" class="btn btn-success btn-block"></form></td>
@@ -228,12 +228,12 @@ body {margin:0;}
        </tbody>
     </table>
 
-		
-					
-					
+
+
+
                 </div>
             </div>
-           
+
     </section>
 
     <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
@@ -244,7 +244,7 @@ body {margin:0;}
                     </div>
                 </div>
             </div>
-         
+
     <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -302,12 +302,14 @@ body {margin:0;}
 
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/freelancer.js"></script>
-	
+
 
 	 <script type="../static/text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
 <script type="../static/text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
         <script type="../static/text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.12.3.min.js"
-<script>
+
+        <!--
+        <script>
 
 $(document).ready(function() {
 
@@ -323,9 +325,34 @@ $('#myInput').on( 'keyup', function () {
     table.search( this.value ).draw();
 } );
                         </script>
+-->
+        <script>
+        $(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#results tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+ 
+    // DataTable
+    var table = $('#results').DataTable();
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+} );
 
-
-
+</script>
+        
 <script type="text/css">
     tfoot input {
         width: 100%;
